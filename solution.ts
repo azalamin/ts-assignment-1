@@ -66,8 +66,17 @@ interface Book {
 	isAvailable: boolean;
 }
 
-const printBookDetails = (book: Book) => {
+const printBookDetails = (book: Book): void => {
 	console.log(
 		`Title: ${book.title}, Author: ${book.author}, Published: ${book.publishedYear}, Available: ${book.isAvailable}`
 	);
+};
+
+const getUniqueValues = (arr1: any[], arr2: any[]) => {
+	return [...arr1, ...arr2].reduce((acc, item) => {
+		if (!acc.includes(item)) {
+			acc.push(item);
+		}
+		return acc;
+	}, []);
 };
