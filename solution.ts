@@ -1,6 +1,6 @@
-type FormatData = string | number | boolean;
+type SupportedValue = string | number | boolean;
 
-const formatValue = (value: FormatData): FormatData => {
+const formatValue = (value: SupportedValue): SupportedValue => {
 	if (typeof value === "string") {
 		return value.toUpperCase();
 	}
@@ -12,7 +12,7 @@ const formatValue = (value: FormatData): FormatData => {
 	return !value;
 };
 
-const getLength = (value: string | any[]): number => {
+const getLength = (value: string | unknown[]): number => {
 	if (Array.isArray(value)) {
 		return value.length;
 	}
@@ -51,12 +51,7 @@ interface User {
 }
 
 const filterActiveUsers = (users: User[]) => {
-	return users.reduce<User[]>((acc, user): User[] => {
-		if (user.isActive) {
-			acc.push(user);
-		}
-		return acc;
-	}, []);
+	return users.filter(user => user.isActive);
 };
 
 interface Book {
@@ -67,16 +62,37 @@ interface Book {
 }
 
 const printBookDetails = (book: Book): void => {
+	const { title, author, publishedYear, isAvailable } = book;
 	console.log(
-		`Title: ${book.title}, Author: ${book.author}, Published: ${book.publishedYear}, Available: ${book.isAvailable}`
+		`Title: ${title}, Author: ${author}, Published: ${publishedYear}, Available: ${
+			isAvailable ? "Yes" : "No"
+		}`
 	);
 };
 
-const getUniqueValues = (arr1: any[], arr2: any[]) => {
-	return [...arr1, ...arr2].reduce((acc, item) => {
-		if (!acc.includes(item)) {
-			acc.push(item);
+const getUniqueValues = <T>(arr1: T[], arr2: T[]): T[] => {
+	const merged: T[] = [...arr1, ...arr2];
+	let uniqueValues: T[] = [];
+	for (let i = 0; i < merged.length; i++) {
+		if (!uniqueValues.includes(merged[i])) {
+			uniqueValues.push(merged[i]);
 		}
-		return acc;
-	}, []);
+	}
+	return uniqueValues;
+};
+
+interface Product {
+	name: string;
+	price: number;
+	quantity: number;
+	discount?: number;
+}
+
+const calculateTotalPrice = (products: Product[]): number => {
+	return products.reduce((total, product) => {
+		const basePrice = product.price * product.quantity;
+		const discountMultiplier = product.discount !== undefined ? 1 - product.discount / 100 : 1;
+
+		return total + basePrice * discountMultiplier;
+	}, 0);
 };
