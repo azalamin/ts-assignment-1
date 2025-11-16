@@ -74,10 +74,20 @@ const getUniqueValues = <T>(arr1: T[], arr2: T[]): T[] => {
 	const merged: T[] = [...arr1, ...arr2];
 	let uniqueValues: T[] = [];
 	for (let i = 0; i < merged.length; i++) {
-		if (!uniqueValues.includes(merged[i])) {
+		let foundIndex = -1;
+
+		for (let j = 0; j < uniqueValues.length; j++) {
+			if (merged[i] === uniqueValues[j]) {
+				foundIndex = j;
+				break;
+			}
+		}
+
+		if (foundIndex == -1) {
 			uniqueValues.push(merged[i]);
 		}
 	}
+
 	return uniqueValues;
 };
 
