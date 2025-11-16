@@ -40,12 +40,7 @@ interface Item {
 }
 
 const filterByRating = (items: Item[]): Item[] => {
-	return items.reduce<Item[]>((acc, item): Item[] => {
-		if (item.rating >= 4) {
-			acc.push(item);
-		}
-		return acc;
-	}, []);
+	return items.filter(item => item.rating >= 4);
 };
 
 interface User {
@@ -64,10 +59,15 @@ const filterActiveUsers = (users: User[]) => {
 	}, []);
 };
 
-const users = [
-	{ id: 1, name: "Rakib", email: "rakib@example.com", isActive: true },
-	{ id: 2, name: "Asha", email: "asha@example.com", isActive: false },
-	{ id: 3, name: "Rumi", email: "rumi@example.com", isActive: true },
-];
+interface Book {
+	title: string;
+	author: string;
+	publishedYear: number;
+	isAvailable: boolean;
+}
 
-console.log(filterActiveUsers(users));
+const printBookDetails = (book: Book) => {
+	console.log(
+		`Title: ${book.title}, Author: ${book.author}, Published: ${book.publishedYear}, Available: ${book.isAvailable}`
+	);
+};
