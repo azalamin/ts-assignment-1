@@ -73,6 +73,9 @@ const printBookDetails = (book: Book): void => {
 const getUniqueValues = <T>(arr1: T[], arr2: T[]): T[] => {
 	const merged: T[] = [...arr1, ...arr2];
 	let uniqueValues: T[] = [];
+
+	let uniqueIndex = 0;
+
 	for (let i = 0; i < merged.length; i++) {
 		let foundIndex = -1;
 
@@ -84,7 +87,8 @@ const getUniqueValues = <T>(arr1: T[], arr2: T[]): T[] => {
 		}
 
 		if (foundIndex == -1) {
-			uniqueValues.push(merged[i]);
+			uniqueValues[uniqueIndex] = merged[i];
+			uniqueIndex++;
 		}
 	}
 
