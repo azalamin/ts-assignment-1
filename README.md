@@ -16,6 +16,7 @@ Date: 17.11.2025
 
 ```ts
 type IsActive = boolean;
+
 interface IUser {
 	name: string;
 	id: number;
@@ -34,16 +35,40 @@ const user: IUser = {
 
 ## প্রশ্ন ২: What is the use of the keyof keyword in TypeScript? Provide an example.
 
-🔹 সংজ্ঞা / ব্যাখ্যা
+🔹 keyof নিয়ে এখানে কোড করে বিস্তারিত দেওয়া হলঃ keyof একটি type operator যা object-type এর সব key নিয়ে একটি union type তৈরি করে।
 
-এখানে নিজের মতো সহজ ভাষায় মূল ধারণাটি লিখুন।
+```ts
+type Product = {
+	name: string;
+	id: number;
+	price: number;
+	quantity: number;
+	category: string;
+};
 
-🔹 ব্যবহার / প্রয়োগ
+type ProductKeys = keyof Product; // এখানে উপরের টাইপের সব key গুলো union আকারে চলে এসেছে
 
-কোথায় লাগে? কিভাবে সমস্যা সমাধান করে?
+// অর্থাৎ --> "name" | "id" | "price" | "quantity" | "category"
 
-🔹 উদাহরণ
-// এখানে কোড লিখবেন
+const product: Product = {
+	name: "iphone 16 pro",
+	id: 300,
+	price: 1700,
+	quantity: 51,
+	category: "smartphone",
+};
+
+// এখন আমরা অবজেক্টে কিভাবে ব্যাবহার করতে হয় দেখি।
+
+const productValue = (obj: Product, key: keyof Product) => {
+	return obj[key];
+};
+
+console.log(productValue(product, "category")); // smartphone
+console.log(productValue(product, "color")); // এখানে undefined আসবে অর্থাৎ Error দেবে
+```
+
+উপরে Error দেওয়ার কারণ হল যে color নামে যেই property আমরা দিচ্ছি সেটা ওই অবজেক্টের প্রপার্টি না। এই keyof আমাদের খুব কাজে দিবে Real-World এ কাজের সময়।
 
 ## প্রশ্ন ৩: Explain the difference between any, unknown, and never types in TypeScript.
 

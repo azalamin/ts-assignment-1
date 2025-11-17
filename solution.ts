@@ -106,3 +106,29 @@ const calculateTotalPrice = (products: Product[]): number => {
 		return total + basePrice * discountMultiplier;
 	}, 0);
 };
+
+type Products = {
+	name: string;
+	id: number;
+	price: number;
+	quantity: number;
+	category: string;
+};
+
+type ProductKeys = keyof Product; // এখানে উপরের টাইপের সব key গুলো union আকারে চলে এসেছে
+
+// অর্থাৎ --> "name" | "id" | "price" | "quantity" | "category"
+
+const product: Products = {
+	name: "iphone 16 pro",
+	id: 300,
+	price: 1700,
+	quantity: 51,
+	category: "smartphone",
+};
+
+// এখন আমরা অবজেক্টে কিভাবে ব্যাবহার করতে হয় দেখি।
+
+const productValue = (obj: Products, key: keyof Products) => {
+	return obj[key];
+};
