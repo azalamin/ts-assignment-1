@@ -82,10 +82,47 @@ console.log(productValue(product, "color")); // এখানে undefined আস
 
 ## প্রশ্ন ৪: What is the use of enums in TypeScript? Provide an example of a numeric and string enum.
 
-🔹 enum(Enumeration) হলো Typescript এর একটি বিশেষ feature
+🔹 enum(Enumeration) হলো Typescript এর একটি বিশেষ feature যা দিয়ে আমরা constants একসাথে store করতে পারি, এর মধ্যে কোন Duplicate value রাখা যায়না। enum সাধারণত ২ ধরনের হয়ে থাকে।
+
+- numeric enum - এখানে শুধু numeric type ডাটা রাখতে পারি।
+- string enum - এখানে শুধু string type ডাটা রাখতে পারি।
 
 🔹 উদাহরণ
-// এখানে কোড লিখবেন
+
+```ts
+// string enum
+enum Role {
+	Admin = "ADMIN",
+	User = "USER",
+	Guest = "GUEST",
+}
+
+const myRole: Role = Role.Admin;
+
+if (myRole === Role.Admin) {
+	console.log("Permission granted!");
+}
+
+// numeric enum
+enum Status {
+	Approved,
+	Pending,
+	Rejected,
+}
+
+// Typescript এটাকে ভেতরে ভেতরে যেমন বানায়ঃ
+// Approved = 0;
+// Pending = 1;
+// Rejceted = 2;
+
+const orderStatus: Status = Status.Approved;
+
+if (orderStatus === Status.Aprroved) {
+	console.log("Order is approved!");
+}
+```
+
+উপরে কোডে দেখানো হয়েছে কিভাবে আমরা enum string এবং enum numeric কিভাবে ডিফাইন করতে পারি এবং রিয়েল লাইফে ব্যাবহার করতে পারি।
 
 ## প্রশ্ন ৫: Provide an example of using union and intersection types in TypeScript.
 
@@ -107,5 +144,4 @@ type User = UserName & UserAge; // intersection type
 
 ## উপসংহার
 
-শেষে একটু wrap-up লিখবেন —
-এই দুইটা TypeScript concept শেখার ফলে কী বুঝলেন, ভবিষ্যতে কোথায় এটা কাজে লাগবে, ইত্যাদি।
+এই ৫টি TypeScript concepts শেখার ফলে কী বুঝলেন, ভবিষ্যতে কোথায় এটা কাজে লাগবে? আপনার কোন Type টি সব চেয়ে বেশি interesting লেগেছে? কমেন্টে জানান!! ধন্যবাদ!!
